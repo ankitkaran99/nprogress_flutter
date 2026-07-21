@@ -1,3 +1,7 @@
+## 0.0.2
+
+- Updated package metadata, homepage, repository, and license formatting.
+
 ## 0.0.1
 
 - Initial release.
