@@ -1,6 +1,6 @@
 name: nprogress_flutter
 description: A customizable NProgress-style top progress bar loading indicator for Flutter apps.
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/ankitkaran99/nprogress_flutter
 repository: https://github.com/ankitkaran99/nprogress_flutter
 issue_tracker: https://github.com/ankitkaran99/nprogress_flutter/issues

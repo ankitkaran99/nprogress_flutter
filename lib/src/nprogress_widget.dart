@@ -73,13 +73,18 @@ class _NProgressWidgetState extends State<NProgressWidget>
           _spinnerController.repeat();
         }
       } else {
-        setState(() {
-          _opacity = 1.0;
-          _currentValue = status;
-        });
+        if (_currentValue != status || _opacity != 1.0) {
+          setState(() {
+            _opacity = 1.0;
+            _currentValue = status;
+          });
+        }
       }
 
       if (status >= 1.0) {
+        if (widget.controller.options.showSpinner) {
+          _spinnerController.stop();
+        }
         _fadeTimer?.cancel();
         _fadeTimer = Timer(const Duration(milliseconds: 200), () {
           if (mounted && widget.controller.status == 1.0) {
@@ -93,6 +98,9 @@ class _NProgressWidgetState extends State<NProgressWidget>
       if (_isVisible) {
         _fadeTimer?.cancel();
         _fadeTimer = null;
+        if (widget.controller.options.showSpinner) {
+          _spinnerController.stop();
+        }
         setState(() {
           _opacity = 0.0;
         });
@@ -204,13 +212,18 @@ class _NProgressWidgetState extends State<NProgressWidget>
               // Optional Spinner Widget
               if (options.showSpinner)
                 Positioned(
-                  top: pos == NProgressPosition.top
+                  top: options.spinnerAlignment.y < 0
                       ? (options.padding.top + 15.0)
-                      : null,
-                  bottom: pos == NProgressPosition.bottom
+                      : (options.spinnerAlignment.y == 0 ? null : null),
+                  bottom: options.spinnerAlignment.y > 0
                       ? (options.padding.bottom + 15.0)
                       : null,
-                  right: 15.0 + options.padding.right,
+                  left: options.spinnerAlignment.x < 0
+                      ? (15.0 + options.padding.left)
+                      : null,
+                  right: options.spinnerAlignment.x >= 0
+                      ? (15.0 + options.padding.right)
+                      : null,
                   child: RotationTransition(
                     turns: _spinnerController,
                     child: SizedBox(

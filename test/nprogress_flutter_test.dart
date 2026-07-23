@@ -107,6 +107,17 @@ void main() {
       expect(NProgress.status, equals(1.0));
     });
 
+    test('NProgress.run calls done and rethrows exception on task error', () async {
+      await expectLater(
+        () => NProgress.run(() async {
+          expect(NProgress.isStarted, isTrue);
+          throw Exception('Task error');
+        }),
+        throwsA(isA<Exception>()),
+      );
+      expect(NProgress.status, equals(1.0));
+    });
+
     test('NProgress static facade delegates to default controller', () {
       NProgress.start();
       expect(NProgress.isStarted, isTrue);

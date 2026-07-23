@@ -1,3 +1,9 @@
+## 0.0.3
+
+- Fixed spinner animation resource leak by stopping controller when completed/hidden.
+- Updated `NProgressWidget` to respect `spinnerAlignment` configuration.
+- Improved setState efficiency and added exception safety test coverage.
+
 ## 0.0.2
 
 - Updated package metadata, homepage, repository, and license formatting.
